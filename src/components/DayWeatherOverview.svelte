@@ -27,7 +27,7 @@
     $: maxTemp = Math.max(...temperatures);
     $: avgTemp = Math.round(temperatures.reduce((a, b) => a + b, 0) / temperatures.length);
 
-    $: avgRainProbability = Math.round(rainProbabilities.reduce((a, b) => a + b, 0) / rainProbabilities.length);
+    $: maxRainProbability = Math.max(...rainProbabilities);
 
     $: avgCloudDensity = Math.round(cloudDensities.reduce((a, b) => a + b, 0) / cloudDensities.length);
 
@@ -58,7 +58,7 @@
         else
             result += 'cloudy ';
         
-        if(avgRainProbability > 50 && avgCloudDensity >= 10)
+        if(maxRainProbability > 50 && avgCloudDensity >= 10)
             result += 'rainy ';
 
         if(avgWindSpeed > 10)
@@ -142,7 +142,7 @@
     <p class='rainCloudWindDetails'>
         <span class='rain' title='Regenwahrscheinlichkeit'>
             <span>🌧</span>
-            {avgRainProbability}%
+            {maxRainProbability}%
         </span>
 
         <span class='cloudDensity' title='Wolkendichte'>
