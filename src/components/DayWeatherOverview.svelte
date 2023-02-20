@@ -7,7 +7,7 @@
     - Bewölkung
     - Windgeschwindigkeit
 
-    Optional kann ein Hintergrundbild übergeben werden.
+    Optional kann ein Hintergrundbild übergeben werden.HI
 
     @author Tim Plotzki
 -->
