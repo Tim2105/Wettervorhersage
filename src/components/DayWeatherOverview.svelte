@@ -18,7 +18,7 @@
 
     export let day;
     export let temperatures;
-    export let rainProbabilities;
+    export let rain;
     export let cloudDensities;
     export let windSpeeds;
     export let backgroundImage = null;
@@ -27,7 +27,7 @@
     $: maxTemp = Math.max(...temperatures);
     $: avgTemp = Math.round(temperatures.reduce((a, b) => a + b, 0) / temperatures.length);
 
-    $: maxRainProbability = Math.max(...rainProbabilities);
+    $: maxRain = Math.max(...rain);
 
     $: avgCloudDensity = Math.round(cloudDensities.reduce((a, b) => a + b, 0) / cloudDensities.length);
 
@@ -36,12 +36,6 @@
     let weatherType;
 
     afterUpdate(() => {
-        let avgTempColor = calcTempColor(avgTemp);
-
-        let avgThermometer = document.querySelector('.avgThermometer');
-
-        avgThermometer.style.color = avgTempColor;
-
         weatherType = calcWeatherType();
 
         if(backgroundImage)
@@ -51,75 +45,24 @@
     function calcWeatherType() {
         let result = '';
 
-        if(avgCloudDensity < 10)
+        if(avgCloudDensity < 15)
             result += 'sunny ';
-        else if(avgCloudDensity < 40)
+        else if(avgCloudDensity < 60)
             result += 'partly_cloudy ';
         else
             result += 'cloudy ';
         
-        if(maxRainProbability > 50 && avgCloudDensity >= 10)
+        if(maxRain > 50 && avgCloudDensity >= 15)
             result += 'rainy ';
 
-        if(avgWindSpeed > 10)
+        if(avgWindSpeed > 15)
             result += 'windy ';
 
         return result.trim();
     }
-
-    function hexToRgb(hex) {
-        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? [
-            parseInt(result[1], 16),
-            parseInt(result[2], 16),
-            parseInt(result[3], 16)
-        ] : null;
-    }
-
-    function rgbToHex(rgb) {
-        let r = rgb[0];
-        let g = rgb[1];
-        let b = rgb[2];
-
-        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-    }
-
-    function calcTempColor(temp) {
-        let hot = 30;
-        let warm = 20;
-        let mild = 10;
-        let cold = 0;
-
-        let hotColor = '#ff0000';
-        let warmColor = '#ffff00';
-        let mildColor = '#08f26e';
-        let coldColor = '#0000ff';
-
-        if(temp >= hot)
-            return hotColor;
-        else if(temp >= warm)
-            return interpolateColor(warmColor, hotColor, (temp - warm) / (hot - warm));
-        else if(temp >= mild)
-            return interpolateColor(mildColor, warmColor, (temp - mild) / (warm - mild));
-        else if(temp >= cold)
-            return interpolateColor(coldColor, mildColor, (temp - cold) / (mild - cold));
-        else
-            return coldColor;
-    }
-
-    function interpolateColor(color1, color2, factor) {
-        let [r1, g1, b1] = hexToRgb(color1);
-        let [r2, g2, b2] = hexToRgb(color2);
-
-        let r = Math.round(r1 + factor * (r2 - r1));
-        let g = Math.round(g1 + factor * (g2 - g1));
-        let b = Math.round(b1 + factor * (b2 - b1));
-
-        return rgbToHex([r, g, b]);
-    }
 </script>
 
-<span class='container'>
+<div class='container'>
     <h1 class='headline'>{day}</h1>
 
     <WeatherIcon weatherType={weatherType} />
@@ -140,26 +83,26 @@
     </p>
 
     <p class='rainCloudWindDetails'>
-        <span class='rain' title='Regenwahrscheinlichkeit'>
+        <span class='rain' title='Regenintensität in Liter pro Quadratmeter und Stunde'>
             <span>🌧</span>
-            {maxRainProbability}%
+            {maxRain}
         </span>
 
-        <span class='cloudDensity' title='Wolkendichte'>
+        <span class='cloudDensity' title='Wolkendichte in Prozent'>
             <span>☁</span>
-            {avgCloudDensity}%
+            {avgCloudDensity}
         </span>
 
-        <span class='windSpeed' title='Windgeschwindigkeit'>
+        <span class='windSpeed' title='Windgeschwindigkeit in Meter pro Sekunde'>
             <span>💨</span>
-            {avgWindSpeed}km/h
+            {avgWindSpeed}
         </span>
     </p>
 
     <button class='btnDetails'>
         Details
     </button>
-</span>
+</div>
 
 
 <style>
@@ -168,10 +111,11 @@
         flex-direction: column;
         align-items: center;
 
+        width: 100%;
+
         padding-top: 1.5rem;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
         padding-bottom: 0.5rem;
+
         border-style: solid;
         border-width: 0.1rem;
         border-color: #000000;
