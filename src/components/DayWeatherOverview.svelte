@@ -121,7 +121,7 @@
         border-color: #000000;
         border-radius: 0.5rem;
 
-        background-color: lightblue;
+        background-color: white;
 
         font-family: 'Times New Roman', Times, serif;
     }
