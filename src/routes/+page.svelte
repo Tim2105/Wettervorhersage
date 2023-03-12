@@ -1,9 +1,11 @@
 <script>
     import DayWeatherOverview from "/src/components/DayWeatherOverview.svelte";
+    import Detail from "../components/Detail.svelte";
     import { ermittlePosition, APIAbfrage } from "/src/components/APIrequest.js";
     import { onMount } from "svelte";
 
     let days = {};
+    let route = '/detail';
 
     onMount(async () => {
         const position = await ermittlePosition();
@@ -36,6 +38,12 @@
         }
     });
 </script>
+
+{#if route === '/detail'}
+  <Detail bind:route />
+{:else}
+  <DayWeatherOverview bind:route />
+{/if}
 
 <main class='WeatherOverviewContainer'>
     {#each Object.keys(days) as day}
