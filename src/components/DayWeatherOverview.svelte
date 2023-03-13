@@ -98,7 +98,6 @@
             {avgWindSpeed}
         </span>
     </p>
-
     <button class='btnDetails'>
         Details
     </button>
