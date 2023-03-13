@@ -15,6 +15,8 @@
 <script>
     import { afterUpdate } from 'svelte';
     import WeatherIcon from '/src/components/WeatherIcon.svelte';
+    import store from '/src/stores/store.js';
+    import { goto } from '$app/navigation';
 
     export let day;
     export let temperatures;
@@ -60,6 +62,20 @@
 
         return result.trim();
     }
+
+    function showDetails() {
+        console.log("show details");
+        writeToStore();
+        goto("/details/")
+    }
+
+    function writeToStore() {
+        store.temperature = temperatures;
+        store.rain = rain;
+        store.cloudcover = cloudDensities;
+        store.wind = windSpeeds;
+    }
+
 </script>
 
 <div class='container'>
@@ -98,7 +114,7 @@
             {avgWindSpeed}
         </span>
     </p>
-    <button class='btnDetails'>
+    <button class='btnDetails' on:click={showDetails} >
         Details
     </button>
 </div>

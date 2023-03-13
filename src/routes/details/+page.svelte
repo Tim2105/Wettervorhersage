@@ -1,10 +1,19 @@
-<!-- Die Detail.svelte soll mit  chart js ein Diagramm den Temperaturverlauf des Tages zeichnen
+<!-- Die Detail.svelte soll mit  chart js ein Diagramm den Temperaturverlauf des Tages zeichnen  -->
+<div class="Charts">
+<span class="chartBox">
+    <canvas id='Temperatur'></canvas>
+</span>
+<span class="chartBox">
+    <canvas id='Regen'></canvas>
+</span>
+<span class="chartBox">
+    <canvas id='Wind'></canvas>
+</span>
+</div>
 <script>
 
-	import chartjs from 'chart.js';
-    import { afterUpdate } from 'svelte';
+	import chartjs from 'chart.js/auto';
     import store from '/src/stores/store.js';
-	let chartData;
 	import { onMount } from 'svelte';
 
 
@@ -13,52 +22,46 @@
 	let chartCanvas;
 
 	onMount(async (promise) => {
-        console.log(store.temperature);
-		ctx = chartCanvas.getContext('2d');
-			var chart = new chartjs(ctx, {
-				type: 'line',
-				data: {
-						labels: chartLabels,
-						datasets: [{
-								label: 'Revenue',
-								backgroundColor: 'rgb(255, 99, 132)',
-								borderColor: 'rgb(255, 99, 132)',
-								data: store.temperature
-						}]
-				}
-		});
+        printChart(store.temperature, 'Temperatur');
+        printChart(store.rain, 'Regen');
+        printChart(store.wind, 'Wind');
+		
     });
 
-</script>
-
-<canvas bind:this={chartCanvas} id="myChart"></canvas> -->
-<script>
-	import chartjs from 'chart.js';
-	let chartData;
-	import { onMount } from 'svelte';
-
-	let chartValues = [20, 10, 5, 2, 20, 30, 45];
-	let chartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-	let chartCanvas;
-
-	onMount(async (promise) => {
-        let ctx = document.getElementById('myChart');
-		  ctx = chartCanvas.getContext('2d');
-			var chart = new chartjs(ctx, {
+    function printChart(array , chartname) {
+        console.log(store.temperature);
+        ctx = chartCanvas.getContext('2d');
+			var rain = new chartjs(document.getElementById(chartname), {
 				type: 'line',
 				data: {
 						labels: chartLabels,
 						datasets: [{
-								label: 'Revenue',
+								label: chartname,
 								backgroundColor: 'rgb(255, 99, 132)',
 								borderColor: 'rgb(255, 99, 132)',
-								data: chartValues
+								data: array
 						}]
-				}
+                
+				},options: {
+                    responsive: false
+                }
 		});
-
-	});
-
+    }
 </script>
 
-<canvas id="myChart"></canvas>
+<canvas bind:this={chartCanvas} id="chart"></canvas> 
+
+<style>
+    .Charts {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    .chartBox {
+        width: 30%;
+        height: 30%;
+    }
+</style>
