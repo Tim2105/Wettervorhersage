@@ -39,7 +39,7 @@
         weatherType = calcWeatherType();
 
         if(backgroundImage)
-            document.querySelector('.container').style.backgroundImage = `url(${backgroundImage})`;
+            document.querySelector('.container').style.backgroundImage = `${backgroundImage}`;
     });
     
     function calcWeatherType() {
@@ -116,14 +116,23 @@
         padding-top: 1.5rem;
         padding-bottom: 0.5rem;
 
-        border-style: solid;
-        border-width: 0.1rem;
-        border-color: #000000;
         border-radius: 0.5rem;
 
-        background-color: white;
+        background-color: #eee;
+
+        box-shadow: 5px 5px 5px black;
 
         font-family: 'Times New Roman', Times, serif;
+    }
+
+    .container:hover {
+        box-shadow: 5px 5px 5px #fff;
+        transition: box-shadow 0.3s ease;
+
+        cursor: pointer;
+
+        background-color: #ddd;
+        transition: background-color 0.3s ease;
     }
 
     .headline {

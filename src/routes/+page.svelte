@@ -38,7 +38,7 @@
 </script>
 
 <main class='WeatherOverviewContainer'>
-    {#each Object.keys(days) as day}
+    {#each Object.keys(days) as day, i}
         <div class='WeatherOverview'>
             <DayWeatherOverview
                 day={new Date(day).toLocaleDateString('en-US', { weekday: 'long' })}
