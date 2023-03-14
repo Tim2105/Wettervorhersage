@@ -11,35 +11,36 @@
     let chartCanvas;
 
     onMount(async (promise) => {
-        printChart(
+        const chart1 = printChart(
             store.temperature,
-            "Temperatur",
+            "Temperatur (°C)",
             "rgb(255, 99, 132)",
-            "Temperatur",
-            "Stunden"
+            "Temperatur"
         );
-        printChart(
+        const chart2 = printChart(
             store.rain,
-            "Regen",
+            "Regen (Liter/m²)",
             "rgb(54, 162, 235)",
-            "Regenmenge",
-            "Stunden"
+            "Regen"
         );
-        printChart(
+        const chart3 = printChart(
             store.wind,
-            "Wind",
+            "Wind (km/h)",
             "rgb(255, 205, 86)",
-            "Windstärke",
-            "Stunden"
+            "Wind"
         );
+
+        const avgChartWdith = (chart1.width + chart2.width + chart3.width) / 3;
+
+        const title = document.querySelector(".title");
+
+        title.style = `width: ${avgChartWdith}px;`;
     });
 
-    function printChart(array, chartname, colour, yAchse, xAchse) {
+    function printChart(array, chartname, colour, chartid) {
         console.log(store.temperature);
         ctx = chartCanvas.getContext("2d");
-        //ctx.canvas.width = 300;
-        //ctx.canvas.height = 300;
-        var rain = new chartjs(document.getElementById(chartname), {
+        return new chartjs(document.getElementById(chartid), {
             type: "line",
             data: {
                 labels: chartLabels,
@@ -54,42 +55,83 @@
                 ],
             },
             options: {
-                scales: {
-                    y: {
-                        display: true,
-                        text: yAchse,
-                    },
-                    x: {
-                        display: true,
-                        text: xAchse,
-                    },
-                },
                 responsive: false,
             },
         });
     }
 </script>
 
-<div class="Charts">
-    <span class="chartBox">
-        <canvas id="Temperatur" />
-    </span>
-    <span class="chartBox">
-        <canvas id="Regen" />
-    </span>
-    <span class="chartBox">
-        <canvas id="Wind" />
-    </span>
+<div class="container">
+    <h1 class="title">Wetterdaten für { store.day }</h1>
+
+    <div class="Charts">
+        <div class="chartBox">
+            <canvas id="Temperatur" />
+        </div>
+        <div class="chartBox">
+            <canvas id="Regen" />
+        </div>
+        <div class="chartBox">
+            <canvas id="Wind" />
+        </div>
+    </div>
 </div>
 
 <canvas bind:this={chartCanvas} id="chart" />
 
 <style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        text-align: center;
+        border-radius: 0.5rem;
+        background-color: #ccc;
+
+        padding: 0.5rem;
+
+        color: #555;
+    }
+
     .Charts {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
     }
+
+    .chartBox {
+        border-radius: 0.5rem;
+
+        background-color: #ccc;
+        
+        margin: 0.5rem;
+
+        padding: 0.5rem;
+
+        width: fit-content;
+        height: fit-content;
+
+        align-self: center;
+
+        box-shadow: 3px 3px 3px black;
+    }
+
+    .chartBox:hover {
+        background-color: #eee;
+        transition: background-color 0.3s ease;
+
+        box-shadow: 3px 3px 3px #ddd;
+        transition: box-shadow 0.3s ease;
+    }
+
     canvas {
         width: 750px;
         height: 750px;

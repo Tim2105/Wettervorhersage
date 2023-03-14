@@ -64,7 +64,6 @@
     }
 
     function showDetails() {
-        console.log("show details");
         writeToStore();
         goto("/details/")
     }
@@ -74,11 +73,12 @@
         store.rain = rain;
         store.cloudcover = cloudDensities;
         store.wind = windSpeeds;
+        store.day = day;
     }
 
 </script>
 
-<div class='container'>
+<div class='container' on:click={showDetails} on:keydown={showDetails}>
     <h1 class='headline'>{day}</h1>
 
     <WeatherIcon weatherType={weatherType} />
@@ -114,9 +114,6 @@
             {avgWindSpeed}
         </span>
     </p>
-    <button class='btnDetails' on:click={showDetails} >
-        Details
-    </button>
 </div>
 
 
@@ -133,20 +130,20 @@
 
         border-radius: 0.5rem;
 
-        background-color: #eee;
+        background-color: #ccc;
 
-        box-shadow: 5px 5px 5px black;
+        box-shadow: 3px 3px 3px black;
 
         font-family: 'Times New Roman', Times, serif;
     }
 
     .container:hover {
-        box-shadow: 5px 5px 5px #fff;
+        box-shadow: 3px 3px 3px #fff;
         transition: box-shadow 0.3s ease;
 
         cursor: pointer;
 
-        background-color: #ddd;
+        background-color: #eee;
         transition: background-color 0.3s ease;
     }
 
@@ -213,26 +210,5 @@
     .windSpeed {
         margin-left: 0.35rem;
         margin-right: 0.35rem;
-    }
-
-    .btnDetails {
-        font-size: 1rem;
-        font-weight: 500;
-        margin: 0;
-        margin-top: 1rem;
-        padding: 0.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        border-style: solid;
-        border-width: 0.1rem;
-        border-color: #000000;
-        border-radius: 0.5rem;
-        background-color: lightblue;
-        cursor: pointer;
-    }
-
-    .btnDetails:hover {
-        background-color: darkblue;
-        color: lightblue;
     }
 </style>

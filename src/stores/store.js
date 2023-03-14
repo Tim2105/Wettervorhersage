@@ -4,6 +4,7 @@ const data = {
     rain: [],
     cloudcover: [],
     wind: [],
+    day: ''
 };
 
 export default data;

@@ -43,7 +43,7 @@
     {#each Object.keys(days) as day, i}
         <div class='WeatherOverview'>
             <DayWeatherOverview
-                day={new Date(day).toLocaleDateString('en-US', { weekday: 'long' })}
+                day={new Date(day).toLocaleDateString('de-DE', { weekday: 'long' })}
                 temperatures={days[day].temperatures}
                 rain={days[day].rain}
                 cloudDensities={days[day].cloudDensities}
@@ -60,7 +60,7 @@
     }
 
     .WeatherOverview {
-        margin: 0.25rem;
+        margin: 0.3rem;
         width: max(300px, 16%)
     }
 
