@@ -1,3 +1,9 @@
+<!--
+    Startseite der Applikation.
+    Zeigt die Wetterdaten der nächsten 7 Tage an.
+
+    @author Tim Plotzki
+-->
 <script>
     import DayWeatherOverview from "/src/components/DayWeatherOverview.svelte";
     import { ermittlePosition, APIAbfrage } from "/src/components/APIrequest.js";

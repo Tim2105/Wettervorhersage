@@ -1,3 +1,8 @@
+<!--
+    Stellt stündliche Wetterdaten in Diagrammen dar.
+
+    @author Nils Bachmann
+-->
 <script>
     import chartjs from "chart.js/auto";
     import store from "/src/stores/store.js";

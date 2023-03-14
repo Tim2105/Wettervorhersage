@@ -1,9 +1,9 @@
 /**
- * @fileoverview Stellt eine API Anfrage mit der ungefähren Position des Nutzers an https://open-meteo.com diese gibt Jason Daten zurück
+ * @fileoverview Stellt eine API Anfrage mit der ungefähren Position des Nutzers an https://open-meteo.com diese gibt Json Daten zurück
  * 
  *  -
  * 
- * @author  Nils Bachmann
+ * @author Nils Bachmann
  */
 
 /**Aktuelle Lokation feststellen */

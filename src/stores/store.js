@@ -1,4 +1,8 @@
-
+/**
+ * @fileoverview Speichert Wetterdaten
+ * 
+ * @author Nils Bachmann
+ */
 const data = {
     temperature: [],
     rain: [],
