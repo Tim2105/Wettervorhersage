@@ -97,7 +97,7 @@
 
         padding: 0.5rem;
 
-        color: #555;
+        color: black;
     }
 
     .Charts {

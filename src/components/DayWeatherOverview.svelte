@@ -135,6 +135,8 @@
         box-shadow: 3px 3px 3px black;
 
         font-family: 'Times New Roman', Times, serif;
+
+        color: black;
     }
 
     .container:hover {
@@ -152,6 +154,8 @@
         font-weight: 600;
         margin: 0;
         margin-bottom: 1rem;
+
+        text-align: center;
     }
 
     .avgThermometer {
