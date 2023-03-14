@@ -38,6 +38,6 @@ export async function APIAbfrage(position)
         cloudcover: cloudcover,
         wind: wind
     };
-    console.log(weather);
+
     return weather;
 }

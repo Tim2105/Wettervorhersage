@@ -2,6 +2,8 @@
     import chartjs from "chart.js/auto";
     import store from "/src/stores/store.js";
     import { onMount } from "svelte";
+    import { goto } from '$app/navigation';
+    import { browser } from '$app/environment';
 
     const chartLabels = [
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -9,6 +11,10 @@
     ];
     let ctx;
     let chartCanvas;
+
+    if(store.day == '' && browser) {
+        goto("/");
+    }
 
     onMount(async (promise) => {
         const chart1 = printChart(
@@ -25,7 +31,7 @@
         );
         const chart3 = printChart(
             store.wind,
-            "Wind (km/h)",
+            "Wind (m/s)",
             "rgb(255, 205, 86)",
             "Wind"
         );
@@ -38,7 +44,6 @@
     });
 
     function printChart(array, chartname, colour, chartid) {
-        console.log(store.temperature);
         ctx = chartCanvas.getContext("2d");
         return new chartjs(document.getElementById(chartid), {
             type: "line",

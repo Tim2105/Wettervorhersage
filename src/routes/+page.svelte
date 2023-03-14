@@ -4,7 +4,6 @@
     import { onMount } from "svelte";
 
     let days = {};
- 
 
     onMount(async () => {
         const position = await ermittlePosition();
@@ -35,7 +34,6 @@
                 };
             }
         }
-        console.log(days);
     });
 </script>
 
